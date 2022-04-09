@@ -12,14 +12,19 @@ use Notification;
 use App\Notifications\SendReservationEmail;
 
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
 
-    function profile(){
+    function profile()
+    {
         return view('admin.profile.show');
     }
     function index()
     {
+
+
         return view('admin.dashboard');
     }
     function user()
@@ -91,23 +96,25 @@ class AdminController extends Controller
             'email' => $contact->email,
             'subject' => $contact->subject,
             'message' => $contact->message,
-        
+
 
         ];
-        Notification::route('mail','resturantlyreservation@gmail.com')->notify(new SendContactEmail($details));
+        Notification::route('mail', 'resturantlyreservation@gmail.com')->notify(new SendContactEmail($details));
         Toastr::success(' Thanks For Contacting With Us', 'Success', ["positionClass" => "toast-top-right"]);
 
         return redirect()->back();
     }
 
-    function contactShow(){
-        return view('admin.contact.index',[
-            'contacts'=>Contact::latest()->get(),
-            
+    function contactShow()
+    {
+        return view('admin.contact.index', [
+            'contacts' => Contact::latest()->get(),
+
         ]);
     }
 
-    function contactSeen($id){
+    function contactSeen($id)
+    {
         Reservation::find($id)->delete();
 
         return redirect()->view('admin.contact.index');
