@@ -57,6 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth','middleware' => 'isAdm
 // Route::get('/user/dashboard', function () {
 //     return view('user.dashboard')->name('user.dashboard');
 // });
+Route::resource('admin/reservation', ReservationController::class);
+Route::post('admin/contact', [AdminController::class, 'contact'])->name('contact');
 Route::resource('admin/testimonials', TestimonialsController::class);
 Route::resource('admin/profile', ProfileController::class);
 Route::resource('/myReservations', MyReservations::class);
