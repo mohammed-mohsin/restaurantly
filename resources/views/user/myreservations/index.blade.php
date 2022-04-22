@@ -21,7 +21,7 @@
                             <th> Message </th>
                             <th> Status </th>
                             <th>Action</th>
-                          
+
                         </tr>
 
                     </thead>
@@ -38,25 +38,36 @@
                                 <td> {{ $myReservation->message }} </td>
                                 <td>
                                     @if ($myReservation->status == 'confirmed')
-                                        <button class="btn btn-outline-success disabled">{{ $myReservation->status }} </button>
+                                        <button class="btn btn-outline-success disabled">{{ $myReservation->status }}
+                                        </button>
                                     @endif
                                     @if ($myReservation->status == 'pending')
-                                        <button class="btn btn-outline-warning disabled">{{ $myReservation->status }} </button>
+                                        <button class="btn btn-outline-warning disabled">{{ $myReservation->status }}
+                                        </button>
                                     @endif
                                     @if ($myReservation->status == 'cancelled')
-                                        <button class="btn btn-outline-danger disabled">{{ $myReservation->status }} </button>
+                                        <button class="btn btn-outline-danger disabled">{{ $myReservation->status }}
+                                        </button>
                                     @endif
                                 </td>
 
-                               <td>
-                                <a href="{{ route('forcedDeleteReservation', $myReservation->id) }}" type="submit"
-                                    class="btn btn-outline-danger btn-icon-text">Delete <i
-                                        class="mdi mdi-delete"></i></a>
-                               </td>
-                                
-                                
-                                
-                             
+                                <td>
+
+
+                                    <form action="{{ route('myReservations.destroy', $myReservation->id) }}"
+                                        class="d-inline" method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger"><i
+                                                class="material-icons">Delete</i></button>
+                                    </form>
+                                </td>
+
+
+
+
+
 
                             </tr>
                         @endforeach
@@ -65,7 +76,4 @@
             </div>
         </div>
     </div>
-
-
-    
 @endsection
