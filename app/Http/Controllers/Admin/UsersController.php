@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -15,8 +16,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index',[
-            'users'=>User::all(),
+        return view('admin.users.index', [
+            'users' => User::all(),
             // 'rejectedReservations'=>Reservation::onlyTrashed()->get()
         ]);
     }
@@ -61,7 +62,6 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -73,12 +73,19 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user =  User::find($id);
-        $user->user_type = 1;
-       
 
+        $user =  User::find($id);
+        $user->status = 1;
         $user->save();
-        return redirect()->route('user.index');
+        Toastr::success($user->name, ' is now admin', 'Congratulation', ["positionClass" => "toast-top-right"]);
+         return redirect()->route('users.index');
+
+        // $user =  User::find($id);
+      
+        // $user->user_type = 1;
+        // $user->save();
+        // Toastr::success($user->name, ' is now admin', 'Congratulation', ["positionClass" => "toast-top-right"]);
+        // return redirect()->route('users.index');
     }
 
     /**
@@ -90,7 +97,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-       
+
         $user->delete();
         return redirect()->route('users.index');
     }

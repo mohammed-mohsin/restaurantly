@@ -56,13 +56,21 @@
                                     </form>
                                 </td> --}}
                                 <td>
-                                    @if ($user->user_type == 0)
-                                        <a href="{{ route('users.update', $user->id) }}" type="button"
-                                            class="btn btn-outline-info btn-icon-text">Make Admin <i
+                                    {{-- @if ($user->user_type == 0)
+                                        <a href="{{ route('users.update', $user->id) }}" 
+                                            class="btn btn-outline-info ">Make Admin <i
                                                 class="mdi mdi-cross"></i></a>
-                                    @endif
+                                    @endif --}}
+                                   
 
 
+                                    {{-- <form action="{{ route('users.update', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-outline-info ">Make Admin <i
+                                                class="mdi mdi-delete"></i></button>
+
+                                    </form> --}}
                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
